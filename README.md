@@ -1,7 +1,7 @@
 # QR Generator
 <b>Simple application to generate QR codes for logging in to any Wi-Fi network. </b>
 
-<p>To use the application, simply run the main method in the QR_Generator class. The application will prompt you to enter the SSID and password of the Wi-Fi network you want to generate a QR code for. 
+<p>To use the application, simply run the main method in the GenerarQR class. The application will prompt you to enter the SSID and password of the Wi-Fi network you want to generate a QR code for
 Once you have entered the required information, the application will generate a QR code that can be scanned by any device to connect to the Wi-Fi network.</p>
 
 <b>Note:</b> This application uses the ZXing library to generate QR codes. Make sure to include the ZXing library in your project dependencies to run the application successfully.

@@ -38,6 +38,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+
         String ssid = JOptionPane.showInputDialog(
                 null,
                 "Introduce el SSID:",
@@ -54,6 +55,17 @@ public class Main {
 
             return;
         }
+
+        if (ssid.length() > 32) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "SSID no puede contener más de 32 caracteres."
+            );
+
+            return;
+        }
+
 
         String password = JOptionPane.showInputDialog(
                 null,
