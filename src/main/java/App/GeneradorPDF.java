@@ -17,9 +17,8 @@ import java.io.File;
 
 public class GeneradorPDF {
 
-    public static void generarPDF(String ssid, String password, File qrFile) throws Exception {
-
-        File plantilla = new File("Router_clientes.pdf");
+    public static void generarPDF( String ssid, String password, File plantilla, File qrFile, float qrX, float qrY)
+            throws Exception {
 
         File salida = new File("Router_" + ssid + ".pdf");
 
@@ -65,8 +64,8 @@ public class GeneradorPDF {
         canvas.showText(password);
         canvas.endText();
 
-        float x = 25f;
-        float y = 43f;
+        float x = qrX;
+        float y = qrY;
         float ancho = 57f;
         float alto = 57f;
 
@@ -74,13 +73,14 @@ public class GeneradorPDF {
 
         canvas.addImageFittedIntoRectangle(qrData, rect, false);
 
+        /*
         float margen = 8f;
 
         canvas.setStrokeColor(ColorConstants.BLACK);
         canvas.setLineWidth(1f);
         canvas.roundRectangle(margen, 14f, 255, 144.5f, 25f);
         canvas.stroke();
-
+        */
         pdf.close();
 
         Desktop desktop = Desktop.getDesktop();
