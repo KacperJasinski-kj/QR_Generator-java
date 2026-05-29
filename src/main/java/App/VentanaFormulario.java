@@ -55,6 +55,12 @@ public class VentanaFormulario extends JFrame {
                     if (!archivo.getName().toLowerCase().endsWith(".pdf")) {
                         JOptionPane.showMessageDialog(null, "Solo se permiten archivos en PDF.");
                         return false;
+                    } else if (txtSsid.getText().isEmpty() || txtSsid.getText().length() > 32) {
+                        JOptionPane.showMessageDialog(null, "El ssid no puede estar vacio ni contener mas de 32 caracteres.");
+                        return false;
+                    }else if (txtPassword.getText().isEmpty() || txtPassword.getText().contains(" ") ) {
+                        JOptionPane.showMessageDialog(null, "La contraseña no puede estar vacia ni contener espacios.");
+                        return false;
                     }
 
                     pdfSeleccionado = archivo;
@@ -91,8 +97,8 @@ public class VentanaFormulario extends JFrame {
         if (ssid.isEmpty() || ssid.length() > 32) {
             System.out.println("SSID no puede estar vacío ni tener más de 32 caracteres.");
             return;
-        }else if (password.isEmpty()) {
-            System.out.println("La contraseña no puede estar vacía.");
+        }else if (password.isEmpty() || password.contains(" ")) {
+            System.out.println("La contraseña no puede estar vacía ni contener espacios.");
             return;
         } else if (pdfSeleccionado == null) {
             System.out.println("Debes arrastrar un PDF.");

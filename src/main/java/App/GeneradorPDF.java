@@ -17,7 +17,7 @@ import java.io.File;
 
 public class GeneradorPDF {
 
-    public static void generarPDF( String ssid, String password, File plantilla, File qrFile, float qrX, float qrY)
+    public static void generarPDF( String ssid, String password, File plantilla, File qrFile, float qrX, float qrY, float qrAncho, float qrAlto)
             throws Exception {
 
         File salida = new File("Router_" + ssid + ".pdf");
@@ -66,10 +66,10 @@ public class GeneradorPDF {
         canvas.endText();
         */
 
-        float x = qrX - 80;
-        float y = qrY - 70;
-        float ancho = 57f;
-        float alto = 57f;
+        float x = qrX -36;
+        float y = qrY -24;
+        float ancho = qrAncho -40;
+        float alto = qrAlto -40;
 
         Rectangle rect = new Rectangle(x, y, ancho, alto );
 

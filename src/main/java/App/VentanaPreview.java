@@ -6,7 +6,6 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -20,42 +19,41 @@ public class VentanaPreview extends JFrame {
     private BufferedImage imagenPDF;
 
     public VentanaPreview(String ssid, String password, File pdfFile) {
+
         this.ssid = ssid;
         this.password = password;
         this.pdfFile = pdfFile;
 
-        setTitle("Selecciona posición del QR");
+        setTitle("Selecciona posición y tamaño del QR");
         setSize(600, 800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(new BorderLayout());
 
         cargarPreview();
 
-        JLabel label = new JLabel(new ImageIcon(imagenPDF));
-        JScrollPane scrollPane = new JScrollPane(label);
+        PanelPreviewPDF panelPreview = new PanelPreviewPDF(imagenPDF);
 
-        add(scrollPane);
+        JScrollPane scrollPane = new JScrollPane(panelPreview);
 
-        label.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        JButton btnGenerar = new JButton("Generar PDF");
 
-                try {
+        add(scrollPane, BorderLayout.CENTER);
+        add(btnGenerar, BorderLayout.SOUTH);
+
+        btnGenerar.addActionListener(e -> {
+
+            try {
+                Rectangle rect = panelPreview.getRectanguloSeleccionado();
+
+                if(tamanoQRvalido(rect)){
+                    return;
+                }else {
                     File qrFile = GeneradorQR.generarQR(ssid, password);
 
-                    float escalaX = (float) imagenPDF.getWidth() / label.getWidth();
-                    float escalaY = (float) imagenPDF.getHeight() / label.getHeight();
+                    float pdfX = rect.x;
 
-                    float clickX = e.getX() * escalaX;
-                    float clickY = e.getY() * escalaY;
-
-                    /*
-                     * Convertir coordenadas Swing a coordenadas PDF
-                     * Swing: Y empieza arriba
-                     * PDF: Y empieza abajo
-                     */
-                    float pdfX = clickX;
-                    float pdfY = imagenPDF.getHeight() - clickY;
+                    float pdfY = imagenPDF.getHeight() - rect.y - rect.height;
 
                     GeneradorPDF.generarPDF(
                             ssid,
@@ -63,7 +61,9 @@ public class VentanaPreview extends JFrame {
                             pdfFile,
                             qrFile,
                             pdfX,
-                            pdfY
+                            pdfY,
+                            rect.width,
+                            rect.height
                     );
 
                     JOptionPane.showMessageDialog(
@@ -71,19 +71,25 @@ public class VentanaPreview extends JFrame {
                             "PDF generado correctamente."
                     );
 
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Error: " + ex.getMessage()
-                    );
                 }
+
+
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Error: " + ex.getMessage()
+                );
             }
         });
     }
 
-    private void cargarPreview()     {
+    private void cargarPreview() {
+
         try {
+
             PDDocument document = Loader.loadPDF(pdfFile);
+
             PDFRenderer renderer = new PDFRenderer(document);
 
             imagenPDF = renderer.renderImageWithDPI(0, 100);
@@ -91,10 +97,28 @@ public class VentanaPreview extends JFrame {
             document.close();
 
         } catch (Exception e) {
+
             JOptionPane.showMessageDialog(
                     null,
                     "Error cargando preview: " + e.getMessage()
             );
         }
+    }
+    public boolean tamanoQRvalido(Rectangle rect) {
+        if (imagenPDF.getHeight() < rect.getHeight() || imagenPDF.getWidth() < rect.getWidth()){
+            JOptionPane.showMessageDialog(
+                    null,
+                    "El QR no puede ser mas grande que el pdf."
+            );
+            return false;
+
+        } else if (rect.width < 10 || rect.height < 10) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Selecciona un área más grande para el QR."
+            );
+            return false;
+        }
+        return true;
     }
 }
