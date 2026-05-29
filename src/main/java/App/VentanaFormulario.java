@@ -47,9 +47,8 @@ public class VentanaFormulario extends JFrame {
             public boolean importData(TransferSupport support) {
 
                 try {
-                    List<File> archivos = (List<File>) support
-                            .getTransferable()
-                            .getTransferData(DataFlavor.javaFileListFlavor);
+                    // Con esto se obtengo la informacion de los archivos arrastrados (archivo.txt, libro.pdf...)
+                    List<File> archivos = (List<File>) support.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
 
                     File archivo = archivos.get(0);
 

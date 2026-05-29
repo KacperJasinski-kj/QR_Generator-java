@@ -57,19 +57,21 @@ public class GeneradorPDF {
         float passwordTextWidth = font.getWidth(password, fontSize);
         float passwordX = passwordBoxX + (passwordBoxWidth - passwordTextWidth) / 2;
 
+        /*
         canvas.beginText();
         canvas.setFontAndSize(font, fontSize);
         canvas.setFillColor(ColorConstants.WHITE);
         canvas.moveText(passwordX, passwordBoxY);
         canvas.showText(password);
         canvas.endText();
+        */
 
-        float x = qrX;
-        float y = qrY;
+        float x = qrX - 80;
+        float y = qrY - 70;
         float ancho = 57f;
         float alto = 57f;
 
-        Rectangle rect = new Rectangle(x, y, ancho, alto);
+        Rectangle rect = new Rectangle(x, y, ancho, alto );
 
         canvas.addImageFittedIntoRectangle(qrData, rect, false);
 
