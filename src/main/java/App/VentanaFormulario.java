@@ -53,10 +53,7 @@ public class VentanaFormulario extends JFrame {
 
                     File archivo = archivos.get(0);
 
-                    if (!archivo.getName().toLowerCase().endsWith(".pdf")) {
-                        JOptionPane.showMessageDialog(null, "Solo se permiten archivos en PDF.");
-                        return false;
-                    }
+                    validarTipoArchivo(archivo);
 
                     pdfSeleccionado = archivo;
                     lblPdf.setText(archivo.getName());
@@ -99,5 +96,12 @@ public class VentanaFormulario extends JFrame {
             System.out.println("Debes arrastrar un PDF.");
             return;
         }
+    }
+    public boolean validarTipoArchivo(File archivo){
+        if (!archivo.getName().toLowerCase().endsWith(".pdf")) {
+            JOptionPane.showMessageDialog(null, "Solo se permiten archivos en PDF.");
+            return false;
+        }
+        return true;
     }
 }

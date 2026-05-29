@@ -34,6 +34,9 @@ public class GeneradorPDF {
 
         PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
 
+        /*
+        Opcional para añadir el ssid y el password al pdf
+
         float fontSize = 6f;
 
         float ssidBoxX = 165f;
@@ -63,6 +66,7 @@ public class GeneradorPDF {
         canvas.moveText(passwordX, passwordBoxY);
         canvas.showText(password);
         canvas.endText();
+        */
 
         float x = qrX;
         float y = qrY;
@@ -73,7 +77,9 @@ public class GeneradorPDF {
 
         canvas.addImageFittedIntoRectangle(qrData, rect, false);
 
+
         /*
+        Opcional, para margen
         float margen = 8f;
 
         canvas.setStrokeColor(ColorConstants.BLACK);
