@@ -17,13 +17,11 @@ Password: MySecurePassword
 - [x] Allow users to use any .pdf they want, not only the one in the project folder.
 - [x] Add functionality to put the QR code where you want in the .pdf, not only in the position it's currently in.
 - [x] Add functionality to customize the size of the QR code.
-
-### In progress:
--[ ] Upgrades to the GUI.
+- [x] Upgrades to the GUI.
 
 
 ### Known issues:
-- The graphical user interface is poorly designed, maybe a little bit ugly, it's not really an issue but it can be improved in the future.
+I have not found any issues, if you find anything to upgrade contact me.
 
 ### Contact:
 If you have any questions or suggestions, feel free to contact me at [kacperjasinskibusiness@gmail.com].

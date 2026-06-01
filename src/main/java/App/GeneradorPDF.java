@@ -88,6 +88,7 @@ public class GeneradorPDF {
         canvas.roundRectangle(margen, 14f, 255, 144.5f, 25f);
         canvas.stroke();
         */
+
         pdf.close();
 
         Desktop desktop = Desktop.getDesktop();

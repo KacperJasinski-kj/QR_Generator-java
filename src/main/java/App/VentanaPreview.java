@@ -38,8 +38,20 @@ public class VentanaPreview extends JFrame {
 
         JButton btnGenerar = new JButton("Generar PDF");
 
+        btnGenerar.setFont(new Font("Arial", Font.BOLD, 14));
+        btnGenerar.setBackground(new Color(45, 110, 220));
+        btnGenerar.setForeground(Color.WHITE);
+        btnGenerar.setFocusPainted(false);
+        btnGenerar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnGenerar.setPreferredSize(new Dimension(180, 45));
+
+        JPanel panelBoton = new JPanel();
+        panelBoton.setBackground(Color.WHITE);
+
+        panelBoton.add(btnGenerar);
+
         add(scrollPane, BorderLayout.CENTER);
-        add(btnGenerar, BorderLayout.SOUTH);
+        add(panelBoton, BorderLayout.SOUTH);
 
         btnGenerar.addActionListener(e -> {
 
@@ -47,7 +59,6 @@ public class VentanaPreview extends JFrame {
                 Rectangle rect = panelPreview.getRectanguloSeleccionado();
 
                 tamanoQRvalido(rect);
-
 
                     File qrFile = GeneradorQR.generarQR(ssid, password);
 
@@ -71,22 +82,14 @@ public class VentanaPreview extends JFrame {
                             "PDF generado correctamente."
                     );
 
-
-
-
             } catch (Exception ex) {
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Error: " + ex.getMessage()
-                );
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
             }
         });
     }
 
     private void cargarPreview() {
         try {
-
             PDDocument document = Loader.loadPDF(pdfFile);
 
             PDFRenderer renderer = new PDFRenderer(document);
@@ -94,28 +97,16 @@ public class VentanaPreview extends JFrame {
             imagenPDF = renderer.renderImageWithDPI(0, 100);
 
             document.close();
-
         } catch (Exception e) {
-
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Error cargando preview: " + e.getMessage()
-            );
+            JOptionPane.showMessageDialog(null,"Error cargando preview: " + e.getMessage());
         }
     }
     public boolean tamanoQRvalido(Rectangle rect) {
         if (imagenPDF.getHeight() < rect.getHeight() || imagenPDF.getWidth() < rect.getWidth()){
-            JOptionPane.showMessageDialog(
-                    null,
-                    "El QR no puede ser mas grande que el pdf."
-            );
+            JOptionPane.showMessageDialog(null, "El QR no puede ser mas grande que el pdf.");
             return false;
-
         } else if (rect.width < 10 || rect.height < 10) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Selecciona un área más grande para el QR."
-            );
+            JOptionPane.showMessageDialog(null, "Selecciona un área más grande para el QR.");
             return false;
         }
         return true;
