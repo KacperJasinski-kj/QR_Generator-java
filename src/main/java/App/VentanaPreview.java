@@ -46,9 +46,9 @@ public class VentanaPreview extends JFrame {
             try {
                 Rectangle rect = panelPreview.getRectanguloSeleccionado();
 
-                if(tamanoQRvalido(rect)){
-                    return;
-                }else {
+                tamanoQRvalido(rect);
+
+
                     File qrFile = GeneradorQR.generarQR(ssid, password);
 
                     float pdfX = rect.x;
@@ -71,7 +71,7 @@ public class VentanaPreview extends JFrame {
                             "PDF generado correctamente."
                     );
 
-                }
+
 
 
             } catch (Exception ex) {
@@ -85,7 +85,6 @@ public class VentanaPreview extends JFrame {
     }
 
     private void cargarPreview() {
-
         try {
 
             PDDocument document = Loader.loadPDF(pdfFile);
