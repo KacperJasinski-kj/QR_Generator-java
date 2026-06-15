@@ -24,5 +24,4 @@ Password: MySecurePassword
 I have not found any issues, if you find anything to upgrade contact me.
 
 ### Contact:
-If you have any questions or suggestions, feel free to contact me at [kacperjasinskibusiness@gmail.com].
-
+If you have any questions or suggestions, feel free to contact me at [kacperjasinskibusiness@gmail.com](mailto:kacperjasinskibusiness@gmail.com).
